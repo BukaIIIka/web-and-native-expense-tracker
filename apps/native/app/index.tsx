@@ -1,18 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@repo/ui";
+import {AuthForm} from "@repo/ui/src";
 
 export default function Native() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Native</Text>
-      <Button
-        onClick={() => {
-          console.log("Pressed!");
-          alert("Pressed!");
-        }}
-        text="Boop"
-      />
+        <AuthForm submitButtonText={"Login"} onSubmit={() => alert("LoginFormSubmitted")} />
       <StatusBar style="auto" />
     </View>
   );
