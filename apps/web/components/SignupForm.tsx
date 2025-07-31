@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 
 export function SignupForm() {
     const router = useRouter();
-    const onSignup = () => {
+    const onSignup = async () => {
+        await fetch("/api/signup", { method: "POST" });
         router.push("/");
     }
     return (
@@ -14,7 +15,7 @@ export function SignupForm() {
             <h1>Signup</h1>
             <Form onSubmit={onSignup}/>
             or
-            <Link href="/login">signup</Link>
+            <Link href="/login">login</Link>
         </div>
     )
 }

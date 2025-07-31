@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 
 export function LoginForm() {
     const router = useRouter();
-    const onLogin = () => {
+    const onLogin = async () => {
+        await fetch("/api/login", { method: "POST" });
         router.push("/");
     }
     return (
