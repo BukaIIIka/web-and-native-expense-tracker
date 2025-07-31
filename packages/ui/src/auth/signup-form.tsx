@@ -1,4 +1,5 @@
-import { AuthForm } from "./auth-form";
+import React from "react";
+import { AuthForm, type AuthFormValues } from "./auth-form";
 import { useUser } from "@repo/context/src";
 
 export interface SignupFormProps {
@@ -7,10 +8,10 @@ export interface SignupFormProps {
 
 export function SignupForm({ onSubmit }: SignupFormProps) {
   const { setUser } = useUser();
-  const onSignup = (values) => {
+  const onSignup = (values: AuthFormValues) => {
     setUser({ email: values.email, name: values.email });
     onSubmit && onSubmit();
-  }
+  };
   return (
     <AuthForm
       includeConfirmPassword
@@ -19,3 +20,4 @@ export function SignupForm({ onSubmit }: SignupFormProps) {
     />
   );
 }
+
