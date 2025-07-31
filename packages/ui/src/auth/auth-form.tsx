@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
+import { z } from "zod";
 import { Button } from "../button";
 
 export interface AuthFormValues {
@@ -28,37 +29,60 @@ export function AuthForm({
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const [submitAttempted, setSubmitAttempted] = useState(false);
 
-  function handleSubmit() {
-    let valid = true;
+  const schema = useMemo(
+    () =>
+      z
+        .object({
+          email: z
+            .string()
+            .min(1, "Email is required")
+            .email("Invalid email address"),
+          password: z.string().min(1, "Password is required"),
+          confirmPassword: includeConfirmPassword
+            ? z.string().min(1, "Confirm password is required")
+            : z.string().optional(),
+        })
+        .superRefine((data, ctx) => {
+          if (
+            includeConfirmPassword &&
+            data.confirmPassword !== data.password
+          ) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "Passwords do not match",
+              path: ["confirmPassword"],
+            });
+          }
+        }),
+    [includeConfirmPassword],
+  );
+
+  function validate() {
+    const result = schema.safeParse({ email, password, confirmPassword });
+    if (!result.success) {
+      const errors = result.error.formErrors.fieldErrors;
+      setEmailError(errors.email?.[0] ?? "");
+      setPasswordError(errors.password?.[0] ?? "");
+      setConfirmPasswordError(errors.confirmPassword?.[0] ?? "");
+      return false;
+    }
     setEmailError("");
     setPasswordError("");
     setConfirmPasswordError("");
+    return true;
+  }
 
-    if (!email) {
-      setEmailError("Email is required");
-      valid = false;
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        setEmailError("Invalid email address");
-        valid = false;
-      }
-    }
-
-    if (!password) {
-      setPasswordError("Password is required");
-      valid = false;
-    }
-
-    if (includeConfirmPassword) {
-      if (!confirmPassword) {
-        setConfirmPasswordError("Confirm password is required");
-        valid = false;
-      }
-    }
-
-    if (!valid) {
+  function handleSubmit() {
+    setSubmitAttempted(true);
+    setTouched({ email: true, password: true, confirmPassword: true });
+    if (!validate()) {
       return;
     }
 
@@ -77,22 +101,32 @@ export function AuthForm({
         value={email}
         onChangeText={(text) => {
           setEmail(text);
-          if (emailError) setEmailError("");
+          if (emailError) validate();
+        }}
+        onBlur={() => {
+          setTouched((t) => ({ ...t, email: true }));
+          validate();
         }}
         autoCapitalize="none"
       />
-      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+      {(touched.email || submitAttempted) && emailError ? (
+        <Text style={styles.errorText}>{emailError}</Text>
+      ) : null}
       <TextInput
         style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={(text) => {
           setPassword(text);
-          if (passwordError) setPasswordError("");
+          if (passwordError) validate();
+        }}
+        onBlur={() => {
+          setTouched((t) => ({ ...t, password: true }));
+          validate();
         }}
         secureTextEntry
       />
-      {passwordError ? (
+      {(touched.password || submitAttempted) && passwordError ? (
         <Text style={styles.errorText}>{passwordError}</Text>
       ) : null}
       {includeConfirmPassword && (
@@ -103,11 +137,16 @@ export function AuthForm({
             value={confirmPassword}
             onChangeText={(text) => {
               setConfirmPassword(text);
-              if (confirmPasswordError) setConfirmPasswordError("");
+              if (confirmPasswordError) validate();
+            }}
+            onBlur={() => {
+              setTouched((t) => ({ ...t, confirmPassword: true }));
+              validate();
             }}
             secureTextEntry
           />
-          {confirmPasswordError ? (
+          {(touched.confirmPassword || submitAttempted) &&
+          confirmPasswordError ? (
             <Text style={styles.errorText}>{confirmPasswordError}</Text>
           ) : null}
         </>
