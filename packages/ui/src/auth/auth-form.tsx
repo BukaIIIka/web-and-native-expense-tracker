@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Alert } from "react-native";
 import { Button } from "../button";
 
 export interface AuthFormValues {
@@ -26,6 +26,15 @@ export function AuthForm({
   const [confirmPassword, setConfirmPassword] = useState("");
 
   function handleSubmit() {
+    if (!email || !password || (includeConfirmPassword && !confirmPassword)) {
+      Alert.alert("All fields are required");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Invalid email address");
+      return;
+    }
     const values: AuthFormValues = { email, password };
     if (includeConfirmPassword) {
       values.confirmPassword = confirmPassword;
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 320,
     marginStart: "auto",
-    marginEnd: "auto"
+    marginEnd: "auto",
   },
   input: {
     borderWidth: 1,
@@ -79,4 +88,3 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
-
