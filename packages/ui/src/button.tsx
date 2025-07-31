@@ -21,17 +21,20 @@ export function Button({ text, onClick }: ButtonProps) {
 
 const styles = StyleSheet.create({
   button: {
-    maxWidth: 200,
-    textAlign: "center",
-    borderRadius: 10,
-    paddingTop: 14,
-    paddingBottom: 14,
-    paddingLeft: 30,
-    paddingRight: 30,
+    minWidth: 150,
+    borderRadius: 20,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 20,
+    paddingRight: 20,
     fontSize: 15,
     backgroundColor: "#2f80ed",
+    marginStart: "auto",
+    marginEnd: "auto",
   },
   text: {
     color: "white",
+    textAlign: "center",
+    textTransform: "uppercase"
   },
 });
