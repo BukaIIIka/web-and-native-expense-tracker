@@ -8,3 +8,5 @@ export {
   SignupForm,
   type SignupFormProps,
 } from "./auth-form";
+export { ExpenseItem, type ExpenseItemProps } from "./expense-item";
+export { ExpenseList, type ExpenseListProps } from "./expense-list";
