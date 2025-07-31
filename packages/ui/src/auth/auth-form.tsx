@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { Button } from "./button";
+import { Button } from "../button";
 
 export interface AuthFormValues {
   email: string;
@@ -61,32 +63,12 @@ export function AuthForm({
   );
 }
 
-export interface LoginFormProps {
-  onSubmit: (values: AuthFormValues) => void;
-}
-
-export function LoginForm({ onSubmit }: LoginFormProps) {
-  return <AuthForm submitButtonText="Login" onSubmit={onSubmit} />;
-}
-
-export interface SignupFormProps {
-  onSubmit: (values: AuthFormValues) => void;
-}
-
-export function SignupForm({ onSubmit }: SignupFormProps) {
-  return (
-    <AuthForm
-      includeConfirmPassword
-      submitButtonText="Sign Up"
-      onSubmit={onSubmit}
-    />
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",
     maxWidth: 320,
+    marginStart: "auto",
+    marginEnd: "auto"
   },
   input: {
     borderWidth: 1,

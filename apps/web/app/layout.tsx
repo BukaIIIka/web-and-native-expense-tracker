@@ -1,3 +1,7 @@
+"use client";
+
+import { UserProvider } from "@repo/context/src";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }
