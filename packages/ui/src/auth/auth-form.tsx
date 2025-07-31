@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     maxWidth: 320,
+    marginStart: "auto",
+    marginEnd: "auto"
   },
   input: {
     borderWidth: 1,
