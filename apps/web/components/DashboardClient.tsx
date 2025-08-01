@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ExpenseList, ExpenseItem, StatisticBlock, ExpenseItemProps } from "@repo/ui";
+import {
+  ExpenseList,
+  ExpenseItem,
+  StatisticBlock,
+  Dropdown,
+  ExpenseItemProps,
+} from "@repo/ui";
 import { ExportToCsvButton } from "./ExportToCsvButton";
 
 export interface DashboardClientProps {
@@ -18,7 +24,7 @@ export function DashboardClient({
 
   const totalSpending = useMemo(
     () => expenses.reduce((sum, e) => sum + e.amount, 0),
-    [expenses]
+    [expenses],
   );
 
   const filteredExpenses = useMemo(() => {
@@ -42,24 +48,22 @@ export function DashboardClient({
         value={`$${totalSpending.toFixed(2)}`}
       />
       <div style={{ display: "flex", gap: "8px", marginBottom: 16 }}>
-        <select
+        <Dropdown
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value="All">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-        <select
+          onChange={setSelectedCategory}
+          options={[
+            { label: "All Categories", value: "All" },
+            ...categories.map((cat) => ({ label: cat, value: cat })),
+          ]}
+        />
+        <Dropdown
           value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as "date" | "amount")}
-        >
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
+          onChange={(v) => setSortBy(v as "date" | "amount")}
+          options={[
+            { label: "Date", value: "date" },
+            { label: "Amount", value: "amount" },
+          ]}
+        />
         <ExportToCsvButton expenses={filteredExpenses} />
       </div>
       <ExpenseList>
