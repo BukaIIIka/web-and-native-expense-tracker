@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@repo/context": "*",
     "@repo/ui": "*",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.53.0",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-native-web": "^0.19.10",
-    "@repo/context": "*"
+    "react-native-web": "^0.19.10"
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
