@@ -1,5 +1,5 @@
-export { Button, type ButtonProps } from "./button";
+export { Button, type ButtonProps } from "./Button";
+export { Dropdown, type DropdownProps } from "./Dropdown";
 export * from "./auth";
 export * from "./expenses";
 export * from "./statistics";
-export { Dropdown, type DropdownProps } from "./dropdown";

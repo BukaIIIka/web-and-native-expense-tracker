@@ -30,12 +30,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     fontSize: 15,
     backgroundColor: "#2f80ed",
-    marginStart: "auto",
-    marginEnd: "auto",
   },
   text: {
     color: "white",
     textAlign: "center",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
 });

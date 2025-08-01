@@ -1,1 +1,1 @@
-export { StatisticBlock, type StatisticBlockProps } from './statistic-block';
+export { StatisticBlock, type StatisticBlockProps } from "./StatisticBlock";

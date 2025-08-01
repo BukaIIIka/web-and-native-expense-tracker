@@ -25,7 +25,7 @@ export function DashboardClient({
 
   const totalSpending = useMemo(
     () => expenses.reduce((sum, e) => sum + e.amount, 0),
-    [expenses]
+    [expenses],
   );
 
   const filteredExpenses = useMemo(() => {
@@ -49,16 +49,18 @@ export function DashboardClient({
         value={`$${totalSpending.toFixed(2)}`}
       />
       <View style={styles.controls}>
-        <Dropdown
-          options={["All", ...categories]}
-          selectedValue={selectedCategory}
-          onValueChange={setSelectedCategory}
-        />
-        <Dropdown
-          options={["date", "amount"]}
-          selectedValue={sortBy}
-          onValueChange={(v) => setSortBy(v as "date" | "amount")}
-        />
+        <View style={styles.controls}>
+          <Dropdown
+            options={["All", ...categories]}
+            selectedValue={selectedCategory}
+            onValueChange={setSelectedCategory}
+          />
+          <Dropdown
+            options={["Date", "Amount"]}
+            selectedValue={sortBy}
+            onValueChange={(v) => setSortBy(v as "Date" | "Amount")}
+          />
+        </View>
         <ExportToCsvButton expenses={filteredExpenses} />
       </View>
       <ExpenseList>
@@ -72,9 +74,12 @@ export function DashboardClient({
 
 const styles = StyleSheet.create({
   controls: {
+    display: "flex",
     flexDirection: "row",
     gap: 8,
     marginBottom: 16,
     alignItems: "center",
+    flexWrap: "wrap-reverse",
+    justifyContent: "space-between",
   },
 });
