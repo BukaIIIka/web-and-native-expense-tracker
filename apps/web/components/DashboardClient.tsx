@@ -2,13 +2,17 @@
 
 import { useState, useMemo } from "react";
 import { ExpenseList, ExpenseItem, ExpenseItemProps } from "@repo/ui";
+import { ExportToCsvButton } from "./ExportToCsvButton";
 
 export interface DashboardClientProps {
   expenses: ExpenseItemProps[];
   categories: string[];
 }
 
-export function DashboardClient({ expenses, categories }: DashboardClientProps) {
+export function DashboardClient({
+  expenses,
+  categories,
+}: DashboardClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"date" | "amount">("date");
 
@@ -47,6 +51,7 @@ export function DashboardClient({ expenses, categories }: DashboardClientProps) 
           <option value="date">Date</option>
           <option value="amount">Amount</option>
         </select>
+        <ExportToCsvButton expenses={filteredExpenses} />
       </div>
       <ExpenseList>
         {filteredExpenses.map((item, index) => (
