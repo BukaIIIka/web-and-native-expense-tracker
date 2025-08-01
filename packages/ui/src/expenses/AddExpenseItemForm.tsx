@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { Button } from "../button";
-import { ExpenseItemProps } from "./expense-item";
+import { ExpenseItemProps } from "./ExpenseItem";
 
 export interface addExpenseItemFormProps {
   categoryList: string[];
