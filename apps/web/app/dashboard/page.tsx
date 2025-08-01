@@ -1,6 +1,6 @@
 import styles from "../../styles/index.module.css";
 import { ExpenseList } from "@repo/ui";
-import { ExpenseItem, ExpenseItemProps } from "@repo/ui/src";
+import { ExpenseItem, ExpenseItemProps } from "@repo/ui";
 
 async function getData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {

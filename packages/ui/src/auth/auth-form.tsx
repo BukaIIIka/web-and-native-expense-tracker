@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { Button } from "../button";
+import { Button } from "../index";
 
 export interface AuthFormValues {
   email: string;
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 320,
     marginStart: "auto",
-    marginEnd: "auto"
+    marginEnd: "auto",
   },
   input: {
     borderWidth: 1,
@@ -79,4 +79,3 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
-

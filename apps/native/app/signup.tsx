@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { SignupForm } from "@repo/ui/src";
+import { SignupForm } from "@repo/ui";
 
 export default function SignupScreen() {
   const router = useRouter();
@@ -13,7 +13,9 @@ export default function SignupScreen() {
     <View style={styles.container}>
       <Text style={styles.header}>Signup</Text>
       <SignupForm onSubmit={onSignup} />
-      <Link href="/login" style={styles.link}>login</Link>
+      <Link href="/login" style={styles.link}>
+        login
+      </Link>
     </View>
   );
 }

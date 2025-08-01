@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LoginForm as Form } from "@repo/ui/src";
+import { LoginForm as Form } from "@repo/ui";
 import { useRouter } from "next/navigation";
 
 export function LoginForm() {

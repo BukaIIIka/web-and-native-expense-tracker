@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ExpenseItemProps } from "@repo/ui/src";
+import { ExpenseItemProps } from "@repo/ui";
 
 const dummyExpenses: ExpenseItemProps[] = [
   {

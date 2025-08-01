@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { LoginForm } from "@repo/ui/src";
+import { LoginForm } from "@repo/ui";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -13,7 +13,9 @@ export default function LoginScreen() {
     <View style={styles.container}>
       <Text style={styles.header}>Login</Text>
       <LoginForm onSubmit={onLogin} />
-      <Link href="/signup" style={styles.link}>signup</Link>
+      <Link href="/signup" style={styles.link}>
+        signup
+      </Link>
     </View>
   );
 }
