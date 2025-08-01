@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ExpenseList, ExpenseItem, StatisticBlock, ExpenseItemProps } from "@repo/ui";
+import {
+  ExpenseList,
+  ExpenseItem,
+  StatisticBlock,
+  ExpenseItemProps,
+  Dropdown,
+} from "@repo/ui";
+import { View, StyleSheet } from "react-native";
 import { ExportToCsvButton } from "./ExportToCsvButton";
 
 export interface DashboardClientProps {
@@ -36,37 +43,38 @@ export function DashboardClient({
   }, [expenses, selectedCategory, sortBy]);
 
   return (
-    <div>
+    <View>
       <StatisticBlock
         label="Total Spending"
         value={`$${totalSpending.toFixed(2)}`}
       />
-      <div style={{ display: "flex", gap: "8px", marginBottom: 16 }}>
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value="All">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as "date" | "amount")}
-        >
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
+      <View style={styles.controls}>
+        <Dropdown
+          options={["All", ...categories]}
+          selectedValue={selectedCategory}
+          onValueChange={setSelectedCategory}
+        />
+        <Dropdown
+          options={["date", "amount"]}
+          selectedValue={sortBy}
+          onValueChange={(v) => setSortBy(v as "date" | "amount")}
+        />
         <ExportToCsvButton expenses={filteredExpenses} />
-      </div>
+      </View>
       <ExpenseList>
         {filteredExpenses.map((item, index) => (
           <ExpenseItem key={`${item.category}-${index}`} {...item} />
         ))}
       </ExpenseList>
-    </div>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  controls: {
+    flexDirection: "row",
+    gap: 8,
+    marginBottom: 16,
+    alignItems: "center",
+  },
+});
