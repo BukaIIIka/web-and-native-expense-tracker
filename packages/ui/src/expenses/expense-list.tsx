@@ -6,7 +6,12 @@ export interface ExpenseListProps {
 }
 
 export function ExpenseList({ children }: ExpenseListProps) {
-  return <View style={styles.container}>{children}</View>;
+  return (
+    <>
+      <View style={styles.container}></View>
+      <View style={styles.container}>{children}</View>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
