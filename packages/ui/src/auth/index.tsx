@@ -1,3 +1,3 @@
-export { AuthForm, type AuthFormProps, type AuthFormValues } from "./auth-form";
-export { LoginForm, type LoginFormProps } from "./login-form";
-export { SignupForm, type SignupFormProps } from "./signup-form";
+export { AuthForm, type AuthFormProps, type AuthFormValues } from "./AuthForm";
+export { LoginForm, type LoginFormProps } from "./LoginForm";
+export { SignupForm, type SignupFormProps } from "./SignupForm";
