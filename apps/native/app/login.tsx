@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { AuthForm, type AuthFormValues } from "@repo/ui/src";
 import { useUser } from "@repo/context/src";
-
-const API_URL = "https://web-and-native-expense-tracker.vercel.app/api";
+import process from "process";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -12,7 +11,7 @@ export default function LoginScreen() {
   const [errorMessage, setErrorMessage] = React.useState("");
 
   const onLogin = async (values: AuthFormValues) => {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(`${process.env.API_URL}/login`, {
       method: "POST",
       body: JSON.stringify({
         email: values.email,
