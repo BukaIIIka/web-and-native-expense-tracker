@@ -1,32 +1,63 @@
-# Turborepo react-native starter
+# Web and Native Expense Tracker
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+Monorepo for a simple expense tracker with web and mobile clients. The project uses **Turborepo** to share code between a Next.js web app and an Expo-powered React Native app.
 
-## Using this example
+## Apps and Packages
 
-Run the following command:
+- `apps/web` – Next.js app using React Native Web
+- `apps/native` – Expo app for iOS, Android, and web
+- `packages/ui` – shared React Native components
+- `packages/context` – shared state and hooks
+- `packages/typescript-config` – base `tsconfig` for all apps and packages
 
-```sh
-npx create-turbo@latest -e with-react-native-web
+## Development
+
+Install dependencies and start both apps from the repository root:
+
+```bash
+yarn install
+yarn dev
 ```
 
-## What's inside?
+`yarn dev` runs the web app at http://localhost:3000 and starts Expo for the native app. You can also start each app individually:
 
-This Turborepo includes the following packages/apps:
+```bash
+# Web
+cd apps/web
+yarn dev
 
-### Apps and Packages
+# Native
+cd apps/native
+yarn dev        # or yarn ios / yarn android
+```
 
-- `native`: a [react-native](https://reactnative.dev/) app built with [expo](https://docs.expo.dev/)
-- `web`: a [Next.js](https://nextjs.org/) app built with [react-native-web](https://necolas.github.io/react-native-web/)
-- `@repo/ui`: a stub [react-native](https://reactnative.dev/) component library shared by both `web` and `native` applications
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## Environment Variables
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Create `.env` files inside each app with the following variables:
 
-### Utilities
+```bash
+# apps/web/.env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_API_URL=
 
-This Turborepo has some additional tools already setup for you:
+# apps/native/.env
+API_URL=
+```
 
-- [Expo](https://docs.expo.dev/) for native development
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [Prettier](https://prettier.io) for code formatting
+`NEXT_PUBLIC_*` variables expose Supabase credentials and the API base URL for the web app. `API_URL` provides the backend endpoint for the native app.
+
+## Formatting and Building
+
+Format source files with Prettier and build all packages and apps using Turbo:
+
+```bash
+yarn format
+yarn build
+```
+
+## Features
+
+- User authentication (login & signup)
+- Dashboard for tracking expenses and categories
+- Shared UI components and context across web and native clients
