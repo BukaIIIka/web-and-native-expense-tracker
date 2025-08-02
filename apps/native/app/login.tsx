@@ -1,19 +1,48 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { LoginForm } from "@repo/ui/src";
+import { AuthForm, type AuthFormValues } from "@repo/ui/src";
+import { useUser } from "@repo/context/src";
+import process from "process";
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { setUser } = useUser();
+  const [errorMessage, setErrorMessage] = React.useState("");
 
-  const onLogin = () => {
+  const onLogin = async (values: AuthFormValues) => {
+    const response = await fetch(`${process.env.API_URL}/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+      }),
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      setErrorMessage(
+        data?.error ||
+          "Something went wrong. Please try again in a few minutes.",
+      );
+      return;
+    }
+
+    setUser({ email: values.email, name: values.email });
     router.push("/");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Login</Text>
-      <LoginForm onSubmit={onLogin} />
-      <Link href="/signup" style={styles.link}>signup</Link>
+      <AuthForm
+        submitButtonText="Login"
+        onSubmit={onLogin}
+        errorMessage={errorMessage}
+      />
+      <Link href="/signup" style={styles.link}>
+        signup
+      </Link>
     </View>
   );
 }
