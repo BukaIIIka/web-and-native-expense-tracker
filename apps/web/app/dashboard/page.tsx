@@ -3,22 +3,30 @@ import { ExpenseItemProps } from "@repo/ui/src";
 import { DashboardClient } from "../../components";
 
 async function getExpenses() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {
-    method: "GET",
-  });
-  const { data } = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {
+      method: "GET",
+    });
+    const { data } = await res.json();
+    return data;
+  } catch {
+    return [];
+  }
 }
 
 async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/expense-categories`,
-    {
-      method: "GET",
-    }
-  );
-  const { data } = await res.json();
-  return data as string[];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/expense-categories`,
+      {
+        method: "GET",
+      }
+    );
+    const { data } = await res.json();
+    return data as string[];
+  } catch {
+    return [];
+  }
 }
 
 export default async function Dashboard() {

@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ExpenseList, ExpenseItem, StatisticBlock, ExpenseItemProps } from "@repo/ui";
+import { Modal, View } from "react-native";
+import {
+  ExpenseList,
+  ExpenseItem,
+  StatisticBlock,
+  ExpenseItemProps,
+  AddExpenseItemForm,
+  Button,
+} from "@repo/ui";
 import { ExportToCsvButton } from "./ExportToCsvButton";
 
 export interface DashboardClientProps {
@@ -13,16 +21,22 @@ export function DashboardClient({
   expenses,
   categories,
 }: DashboardClientProps) {
+  const [expenseList, setExpenseList] = useState<ExpenseItemProps[]>(expenses);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"date" | "amount">("date");
+  const [showForm, setShowForm] = useState(false);
+
+  const handleAddExpense = (newExpense: ExpenseItemProps) => {
+    setExpenseList((prev) => [...prev, newExpense]);
+  };
 
   const totalSpending = useMemo(
-    () => expenses.reduce((sum, e) => sum + e.amount, 0),
-    [expenses]
+    () => expenseList.reduce((sum, e) => sum + e.amount, 0),
+    [expenseList]
   );
 
   const filteredExpenses = useMemo(() => {
-    let result = expenses;
+    let result = expenseList;
     if (selectedCategory !== "All") {
       result = result.filter((e) => e.category === selectedCategory);
     }
@@ -33,7 +47,7 @@ export function DashboardClient({
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
     return result;
-  }, [expenses, selectedCategory, sortBy]);
+  }, [expenseList, selectedCategory, sortBy]);
 
   return (
     <div>
@@ -61,7 +75,24 @@ export function DashboardClient({
           <option value="amount">Amount</option>
         </select>
         <ExportToCsvButton expenses={filteredExpenses} />
+        <Button text="Add More" onClick={() => setShowForm(true)} />
       </div>
+      <Modal
+        transparent
+        visible={showForm}
+        animationType="slide"
+        onRequestClose={() => setShowForm(false)}
+      >
+        <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+          <AddExpenseItemForm
+            onSubmit={(expense) => {
+              handleAddExpense(expense);
+              setShowForm(false);
+            }}
+          />
+          <Button text="Close" onClick={() => setShowForm(false)} />
+        </View>
+      </Modal>
       <ExpenseList>
         {filteredExpenses.map((item, index) => (
           <ExpenseItem key={`${item.category}-${index}`} {...item} />
