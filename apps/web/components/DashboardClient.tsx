@@ -56,9 +56,9 @@ export function DashboardClient({
             onValueChange={setSelectedCategory}
           />
           <Dropdown
-            options={["Date", "Amount"]}
+            options={["date", "amount"]}
             selectedValue={sortBy}
-            onValueChange={(v) => setSortBy(v as "Date" | "Amount")}
+            onValueChange={(v) => setSortBy(v as "date" | "amount")}
           />
         </View>
         <ExportToCsvButton expenses={filteredExpenses} />
