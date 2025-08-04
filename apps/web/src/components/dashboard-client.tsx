@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { ExpenseList, ExpenseItem, ExpenseItemProps, Dropdown } from "@repo/ui";
 import { View, StyleSheet } from "react-native";
 import { ExportToCsvButton } from "@/components/export-to-csv-button";
+import { AddExpenseForm } from "@/components/add-expense-form";
 
 export interface DashboardClientProps {
   expenses: ExpenseItemProps[];
@@ -46,7 +47,13 @@ export function DashboardClient({
             onValueChange={(v) => setSortBy(v as "date" | "amount")}
           />
         </View>
-        <ExportToCsvButton expenses={filteredExpenses} />
+        <div className="flex gap-3">
+          <AddExpenseForm
+            categories={categories}
+            onFormSubmit={() => console.log("Submitted")}
+          />
+          <ExportToCsvButton expenses={filteredExpenses} />
+        </div>
       </View>
       <ExpenseList>
         {filteredExpenses.map((item, index) => (

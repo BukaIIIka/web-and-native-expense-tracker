@@ -1,6 +1,6 @@
-import { ExpenseItemProps } from "@repo/ui/src";
 import { DashboardClient, TypographyH1 } from "@/components";
 import { StatisticBlock } from "@/components/statistic-block";
+import { ExpenseItemProps } from "@repo/ui";
 
 async function getExpenses() {
   try {
