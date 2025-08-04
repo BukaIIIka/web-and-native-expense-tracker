@@ -3,6 +3,11 @@
 import { ExpenseItemProps } from "@repo/ui";
 import { useMemo } from "react";
 import {
+  calculateThisMonthSpending,
+  calculateTotalSpending,
+  formatAmount,
+} from "@repo/utils";
+import {
   Card,
   CardDescription,
   CardHeader,
@@ -14,26 +19,16 @@ export interface StatisticBlockProps {
 }
 
 export function StatisticBlock({ expenses }: StatisticBlockProps) {
-  //   TODO Move calculations to shared package
   const totalSpending = useMemo(
-    () => expenses.reduce((sum, e) => sum + e.amount, 0),
+    () => calculateTotalSpending(expenses),
     [expenses],
   );
   const thisMonthSpending = useMemo(
-    () =>
-      expenses.reduce((sum, e) => {
-        const currentMonth = new Date().getMonth();
-        const expenseMonth = new Date(e.date).getMonth();
-        if (currentMonth === expenseMonth) {
-          return sum + e.amount;
-        }
-        return sum;
-      }, 0),
+    () => calculateThisMonthSpending(expenses),
     [expenses],
   );
-  const getFormattedAmount = (amount: number) => amount.toFixed(2);
-  const totalSpendingFormatted = getFormattedAmount(totalSpending);
-  const thisMonthSpendingFormatted = getFormattedAmount(thisMonthSpending);
+  const totalSpendingFormatted = formatAmount(totalSpending);
+  const thisMonthSpendingFormatted = formatAmount(thisMonthSpending);
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 my-2">
