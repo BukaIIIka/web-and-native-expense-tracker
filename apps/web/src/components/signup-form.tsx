@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import { AuthForm, type AuthFormValues } from "@repo/ui";
 import { useUser } from "@repo/context/src";
 import * as process from "process";
+import { Button } from "@/components/ui/button";
+import { TypographyH1 } from "@/components/typography";
 
 export function Form({ onSubmit }: { onSubmit: () => void }) {
   const { setUser } = useUser();
@@ -58,10 +60,12 @@ export function SignupForm() {
         justifyContent: "center",
       }}
     >
-      <h1>Signup</h1>
+      <TypographyH1>Signup</TypographyH1>
       <Form onSubmit={onSignup} />
       or
-      <Link href="/login">login</Link>
+      <Button asChild variant="link" size="sm">
+        <Link href="/login">login</Link>
+      </Button>
     </div>
   );
 }

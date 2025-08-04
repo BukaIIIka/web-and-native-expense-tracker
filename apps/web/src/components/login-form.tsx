@@ -7,6 +7,7 @@ import { useUser } from "@repo/context/src";
 import { AuthForm, type AuthFormValues } from "@repo/ui";
 import * as process from "process";
 import { Button } from "@/components/ui/button";
+import { TypographyH1 } from "@/components/typography";
 
 export function Form({ onSubmit }: { onSubmit: () => void }) {
   const { setUser } = useUser();
@@ -56,10 +57,10 @@ export function LoginForm() {
         justifyContent: "center",
       }}
     >
-      <h1>Login</h1>
+      <TypographyH1>Login</TypographyH1>
       <Form onSubmit={onLogin} />
       or
-      <Button asChild variant="ghost" size="sm">
+      <Button asChild variant="link" size="sm">
         <Link href="/signup">signup</Link>
       </Button>
     </div>

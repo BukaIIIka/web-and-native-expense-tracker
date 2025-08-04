@@ -1,6 +1,6 @@
 import styles from "@/styles/index.module.css";
 import { ExpenseItemProps } from "@repo/ui/src";
-import { DashboardClient } from "@/components";
+import { DashboardClient, TypographyH1 } from "@/components";
 
 async function getExpenses() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {
@@ -27,8 +27,7 @@ export default async function Dashboard() {
 
   return (
     <div className={styles.container}>
-      <h1>Your Smartest Money Habit Starts Here</h1>
-      <p></p>
+      <TypographyH1>Your Smartest Money Habit Starts Here</TypographyH1>
       {expenses.length ? (
         <DashboardClient expenses={expenses} categories={categories} />
       ) : null}
