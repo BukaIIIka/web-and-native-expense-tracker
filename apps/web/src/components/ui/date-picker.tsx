@@ -13,12 +13,12 @@ import {
 } from "@/components/ui/popover";
 
 interface DatePickerProps {
-  selectedDate?: string;
+  date?: Date;
+  onDateChange?: (date: Date | undefined) => void;
 }
 
-export function DatePicker({ selectedDate }: DatePickerProps) {
+export function DatePicker({ date, onDateChange }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date | undefined>();
 
   return (
     <div className="flex flex-col gap-3">
@@ -41,8 +41,8 @@ export function DatePicker({ selectedDate }: DatePickerProps) {
             mode="single"
             selected={date}
             captionLayout="dropdown"
-            onSelect={(date) => {
-              setDate(date);
+            onSelect={(d) => {
+              onDateChange?.(d);
               setOpen(false);
             }}
           />
