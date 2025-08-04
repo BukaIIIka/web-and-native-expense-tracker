@@ -14,6 +14,7 @@ export interface StatisticBlockProps {
 }
 
 export function StatisticBlock({ expenses }: StatisticBlockProps) {
+  //   TODO Move calculations to shared package
   const totalSpending = useMemo(
     () => expenses.reduce((sum, e) => sum + e.amount, 0),
     [expenses],
@@ -30,7 +31,7 @@ export function StatisticBlock({ expenses }: StatisticBlockProps) {
       }, 0),
     [expenses],
   );
-  const getFormattedAmount = (amount) => amount.toFixed(2);
+  const getFormattedAmount = (amount: number) => amount.toFixed(2);
   const totalSpendingFormatted = getFormattedAmount(totalSpending);
   const thisMonthSpendingFormatted = getFormattedAmount(thisMonthSpending);
 
