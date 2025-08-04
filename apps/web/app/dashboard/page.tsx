@@ -1,13 +1,13 @@
-import styles from "@/styles/index.module.css";
 import { ExpenseItemProps } from "@repo/ui/src";
 import { DashboardClient, TypographyH1 } from "@/components";
+import { StatisticBlock } from "@/components/statistic-block";
 
 async function getExpenses() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {
     method: "GET",
   });
   const { data } = await res.json();
-  return data;
+  return data as ExpenseItemProps[];
 }
 
 async function getCategories() {
@@ -22,15 +22,14 @@ async function getCategories() {
 }
 
 export default async function Dashboard() {
-  const expenses = (await getExpenses()) as ExpenseItemProps[];
+  const expenses = await getExpenses();
   const categories = await getCategories();
 
   return (
-    <div className={styles.container}>
+    <div className="flex flex-col gap-5 justify-center px-4 md:px-6">
       <TypographyH1>Your Smartest Money Habit Starts Here</TypographyH1>
-      {expenses.length ? (
-        <DashboardClient expenses={expenses} categories={categories} />
-      ) : null}
+      <StatisticBlock expenses={expenses} />
+      <DashboardClient expenses={expenses} categories={categories} />
     </div>
   );
 }

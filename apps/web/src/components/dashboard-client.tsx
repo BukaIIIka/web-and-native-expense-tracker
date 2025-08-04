@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import {
-  ExpenseList,
-  ExpenseItem,
-  StatisticBlock,
-  ExpenseItemProps,
-  Dropdown,
-} from "@repo/ui";
+import { ExpenseList, ExpenseItem, ExpenseItemProps, Dropdown } from "@repo/ui";
 import { View, StyleSheet } from "react-native";
 import { ExportToCsvButton } from "@/components/export-to-csv-button";
 
@@ -22,11 +16,6 @@ export function DashboardClient({
 }: DashboardClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"date" | "amount">("date");
-
-  const totalSpending = useMemo(
-    () => expenses.reduce((sum, e) => sum + e.amount, 0),
-    [expenses],
-  );
 
   const filteredExpenses = useMemo(() => {
     let result = expenses;
@@ -43,11 +32,7 @@ export function DashboardClient({
   }, [expenses, selectedCategory, sortBy]);
 
   return (
-    <View>
-      <StatisticBlock
-        label="Total Spending"
-        value={`$${totalSpending.toFixed(2)}`}
-      />
+    <div className="flex flex-col gap-5">
       <View style={styles.controls}>
         <View style={styles.controls}>
           <Dropdown
@@ -68,7 +53,7 @@ export function DashboardClient({
           <ExpenseItem key={`${item.category}-${index}`} {...item} />
         ))}
       </ExpenseList>
-    </View>
+    </div>
   );
 }
 

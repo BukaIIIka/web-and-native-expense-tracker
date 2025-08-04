@@ -3,6 +3,12 @@ import { ExpenseItemProps } from "@repo/ui/src";
 
 const dummyExpenses: ExpenseItemProps[] = [
   {
+    amount: 120.0,
+    category: "Health & Fitness",
+    description: "Doctor visit",
+    date: "2025-08-01",
+  },
+  {
     amount: 25.5,
     category: "Food & Groceries",
     description: "Weekly supermarket shopping",
