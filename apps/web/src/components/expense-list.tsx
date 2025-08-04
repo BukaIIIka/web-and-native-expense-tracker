@@ -26,7 +26,9 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
       <TableBody>
         {expenses.map((expense, index) => (
           <TableRow key={index}>
-            <TableCell>{expense.amount.toFixed(2)}</TableCell>
+            <TableCell className="font-bold">
+              {expense.amount.toFixed(2)}
+            </TableCell>
             <TableCell>{expense.category}</TableCell>
             <TableCell>{expense.description}</TableCell>
             <TableCell>
@@ -40,4 +42,3 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
     </Table>
   );
 }
-
