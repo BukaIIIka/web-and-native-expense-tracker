@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@repo/ui";
 import { ExpenseItemProps } from "@repo/ui";
+import { Button } from "@/components/ui/button";
 
 export interface ExportToCsvButtonProps {
   expenses: ExpenseItemProps[];
@@ -27,5 +27,5 @@ export function ExportToCsvButton({ expenses }: ExportToCsvButtonProps) {
     URL.revokeObjectURL(url);
   };
 
-  return <Button text="Export CSV" onClick={exportCsv} />;
+  return <Button onClick={exportCsv}>Export CSV</Button>;
 }
