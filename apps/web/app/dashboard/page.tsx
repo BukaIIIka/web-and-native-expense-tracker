@@ -1,6 +1,6 @@
-import styles from "../../styles/index.module.css";
+import styles from "@/styles/index.module.css";
 import { ExpenseItemProps } from "@repo/ui/src";
-import { DashboardClient } from "../../components";
+import { DashboardClient } from "@/components";
 
 async function getExpenses() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/expenses`, {
@@ -15,7 +15,7 @@ async function getCategories() {
     `${process.env.NEXT_PUBLIC_API_URL}/expense-categories`,
     {
       method: "GET",
-    }
+    },
   );
   const { data } = await res.json();
   return data as string[];

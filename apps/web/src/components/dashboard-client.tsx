@@ -9,7 +9,7 @@ import {
   Dropdown,
 } from "@repo/ui";
 import { View, StyleSheet } from "react-native";
-import { ExportToCsvButton } from "./ExportToCsvButton";
+import { ExportToCsvButton } from "@/components/export-to-csv-button";
 
 export interface DashboardClientProps {
   expenses: ExpenseItemProps[];

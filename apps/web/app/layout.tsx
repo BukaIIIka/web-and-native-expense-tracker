@@ -1,4 +1,4 @@
-"use client";
+import "@/styles/global.css";
 
 import { UserProvider } from "@repo/context/src";
 

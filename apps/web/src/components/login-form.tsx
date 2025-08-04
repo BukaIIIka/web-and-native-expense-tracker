@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { useUser } from "@repo/context/src";
 import { AuthForm, type AuthFormValues } from "@repo/ui";
 import * as process from "process";
+import { Button } from "@/components/ui/button";
 
 export function Form({ onSubmit }: { onSubmit: () => void }) {
   const { setUser } = useUser();
@@ -58,7 +59,9 @@ export function LoginForm() {
       <h1>Login</h1>
       <Form onSubmit={onLogin} />
       or
-      <Link href="/signup">signup</Link>
+      <Button asChild variant="ghost" size="sm">
+        <Link href="/signup">signup</Link>
+      </Button>
     </div>
   );
 }
