@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ExpenseList, ExpenseItem, ExpenseItemProps, Dropdown } from "@repo/ui";
+import { ExpenseItemProps, Dropdown } from "@repo/ui";
+import { ExpenseList } from "@/components/expense-list";
 import { View, StyleSheet } from "react-native";
 import { ExportToCsvButton } from "@/components/export-to-csv-button";
 import { AddExpenseForm } from "@/components/add-expense-form";
@@ -60,11 +61,7 @@ export function DashboardClient({
           <ExportToCsvButton expenses={filteredExpenses} />
         </div>
       </View>
-      <ExpenseList>
-        {filteredExpenses.map((item, index) => (
-          <ExpenseItem key={`${item.category}-${index}`} {...item} />
-        ))}
-      </ExpenseList>
+      <ExpenseList expenses={filteredExpenses} />
     </div>
   );
 }
