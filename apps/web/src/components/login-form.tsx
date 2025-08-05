@@ -45,7 +45,7 @@ export function Form({ onSubmit }: { onSubmit: () => void }) {
 export function LoginForm() {
   const router = useRouter();
   const onLogin = async () => {
-    router.push("/");
+    router.push("/dashboard");
   };
 
   return (

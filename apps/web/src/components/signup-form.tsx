@@ -49,7 +49,7 @@ export function Form({ onSubmit }: { onSubmit: () => void }) {
 export function SignupForm() {
   const router = useRouter();
   const onSignup = async () => {
-    router.push("/");
+    router.push("/dashboard");
   };
   return (
     <div

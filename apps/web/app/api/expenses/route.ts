@@ -1,72 +1,72 @@
 import { NextResponse } from "next/server";
-import { ExpenseItemProps } from "@repo/ui/src";
+import { ExpenseItemProps } from "@repo/ui";
 
 const dummyExpenses: ExpenseItemProps[] = [
   {
     amount: 120.0,
     category: "Health & Fitness",
     description: "Doctor visit",
-    date: "2025-08-01",
+    date: "8/1/2025",
   },
   {
     amount: 25.5,
     category: "Food & Groceries",
     description: "Weekly supermarket shopping",
-    date: "2025-07-20",
+    date: "7/20/2025",
   },
   {
     amount: 12.0,
     category: "Dining Out",
     description: "Lunch with friends",
-    date: "2025-07-21",
+    date: "7/21/2025",
   },
   {
     amount: 55.99,
     category: "Health & Fitness",
     description: "Monthly gym membership",
-    date: "2025-07-01",
+    date: "7/1/2025",
   },
   {
     amount: 1200.0,
     category: "Housing & Utilities",
     description: "July apartment rent",
-    date: "2025-07-01",
+    date: "7/1/2025",
   },
   {
     amount: 45.3,
     category: "Transportation",
     description: "Gas refill",
-    date: "2025-07-18",
+    date: "7/18/2025",
   },
   {
     amount: 29.99,
     category: "Entertainment",
     description: "Streaming subscription",
-    date: "2025-07-15",
+    date: "7/15/2025",
   },
   {
     amount: 180.75,
     category: "Shopping",
     description: "Clothes shopping",
-    date: "2025-07-10",
+    date: "7/10/2025",
   },
   {
     amount: 450.0,
     category: "Travel",
     description: "Weekend getaway flights",
-    date: "2025-07-05",
+    date: "7/5/2025",
   },
   {
     amount: 80.0,
     category: "Education",
     description: "Online course fee",
-    date: "2025-07-08",
+    date: "7/8/2025",
   },
   {
     amount: 15.99,
     category: "Pets",
     description: "Dog food and treats",
-    date: "2025-07-17",
+    date: "7/17/2025",
   },
 ];
 export async function GET(request: Request) {

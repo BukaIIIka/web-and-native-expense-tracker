@@ -2,6 +2,7 @@
 
 import { ExpenseItemProps } from "@repo/ui";
 import { Button } from "@/components/ui/button";
+import { Share } from "lucide-react";
 
 export interface ExportToCsvButtonProps {
   expenses: ExpenseItemProps[];
@@ -27,5 +28,10 @@ export function ExportToCsvButton({ expenses }: ExportToCsvButtonProps) {
     URL.revokeObjectURL(url);
   };
 
-  return <Button onClick={exportCsv}>Export CSV</Button>;
+  return (
+    <Button onClick={exportCsv} variant="outline">
+      Export CSV
+      <Share />
+    </Button>
+  );
 }

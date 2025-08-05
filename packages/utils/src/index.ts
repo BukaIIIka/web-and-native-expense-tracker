@@ -4,7 +4,9 @@ export function calculateTotalSpending(expenses: ExpenseItemProps[]): number {
   return expenses.reduce((sum, e) => sum + e.amount, 0);
 }
 
-export function calculateThisMonthSpending(expenses: ExpenseItemProps[]): number {
+export function calculateThisMonthSpending(
+  expenses: ExpenseItemProps[],
+): number {
   const currentMonth = new Date().getMonth();
   return expenses.reduce((sum, e) => {
     const expenseMonth = new Date(e.date).getMonth();
@@ -14,4 +16,8 @@ export function calculateThisMonthSpending(expenses: ExpenseItemProps[]): number
 
 export function formatAmount(amount: number): string {
   return amount.toFixed(2);
+}
+
+export function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-US").format(date);
 }
