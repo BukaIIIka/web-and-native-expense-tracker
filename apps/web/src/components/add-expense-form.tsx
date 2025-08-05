@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
+import { formatDate } from "@repo/utils";
 
 interface AddExpenseFormProps {
   categories: string[];
@@ -44,12 +45,10 @@ export function AddExpenseForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const schema = z.object({
-    amount: z
-      .number({ required_error: "Amount is required" })
-      .positive({ message: "Amount is required" }),
+    amount: z.number("Amount is required").positive("Amount is required"),
     category: z.string().min(1, { message: "Category is required" }),
     description: z.string().optional(),
-    date: z.date({ required_error: "Date is required" }),
+    date: z.date("Date is required"),
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +73,7 @@ export function AddExpenseForm({
       amount: result.data.amount,
       category: result.data.category,
       description: result.data.description ?? "",
-      date: result.data.date,
+      date: formatDate(result.data.date),
     });
     setForm({ amount: "", category: "", description: "", date: undefined });
     setOpen(false);
@@ -99,9 +98,7 @@ export function AddExpenseForm({
               name="amount"
               type="number"
               value={form.amount}
-              onChange={(e) =>
-                setForm({ ...form, amount: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, amount: e.target.value })}
             />
             {errors.amount && (
               <p className="text-sm text-red-500">{errors.amount}</p>
@@ -112,16 +109,10 @@ export function AddExpenseForm({
             <Label htmlFor="category">Category</Label>
             <Select
               value={form.category}
-              onValueChange={(value) =>
-                setForm({ ...form, category: value })
-              }
+              onValueChange={(value) => setForm({ ...form, category: value })}
             >
               <SelectTrigger className="w-full">
-                <SelectValue
-                  id="category"
-                  name="category"
-                  placeholder="Select a category"
-                />
+                <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

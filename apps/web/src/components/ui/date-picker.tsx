@@ -41,8 +41,8 @@ export function DatePicker({ date, onDateChange }: DatePickerProps) {
             mode="single"
             selected={date}
             captionLayout="dropdown"
-            onSelect={(d) => {
-              onDateChange?.(d);
+            onSelect={(date) => {
+              onDateChange?.(date);
               setOpen(false);
             }}
           />
