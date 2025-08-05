@@ -4,22 +4,56 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
-import { AuthForm, type AuthFormValues } from "@repo/ui";
 import { useUser } from "@repo/context/src";
 import * as process from "process";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { TypographyH1 } from "@/components/typography";
 
 export function Form({ onSubmit }: { onSubmit: () => void }) {
   const { setUser } = useUser();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSignup = async (values: AuthFormValues) => {
+  const schema = z
+    .object({
+      email: z.string().email({ message: "Email is invalid" }),
+      password: z.string().min(1, { message: "Password is required" }),
+      confirmPassword: z
+        .string()
+        .min(1, { message: "Confirm Password is required" }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const result = schema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as string;
+        fieldErrors[field] = issue.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
       method: "POST",
       body: JSON.stringify({
-        email: values.email,
-        password: values.password,
+        email: result.data.email,
+        password: result.data.password,
       }),
     });
     const data = await response.json();
@@ -32,17 +66,57 @@ export function Form({ onSubmit }: { onSubmit: () => void }) {
       return;
     }
 
-    setUser({ email: values.email, name: values.email });
+    setErrorMessage("");
+    setUser({ email: result.data.email, name: result.data.email });
     onSubmit && onSubmit();
   };
 
   return (
-    <AuthForm
-      includeConfirmPassword
-      submitButtonText="Sign Up"
-      onSubmit={onSignup}
-      errorMessage={errorMessage}
-    />
+    <form onSubmit={handleSubmit} className="grid gap-4">
+      <div className="grid gap-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password}</p>
+        )}
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="confirmPassword">Confirm Password</Label>
+        <Input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          value={form.confirmPassword}
+          onChange={(e) =>
+            setForm({ ...form, confirmPassword: e.target.value })
+          }
+        />
+        {errors.confirmPassword && (
+          <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+        )}
+      </div>
+      {errorMessage && (
+        <p className="text-sm text-red-500 text-center">{errorMessage}</p>
+      )}
+      <Button type="submit">Sign Up</Button>
+    </form>
   );
 }
 
