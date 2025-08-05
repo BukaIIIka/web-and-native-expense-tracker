@@ -41,7 +41,7 @@ export default async function Dashboard() {
   const categories = await getCategories();
 
   return (
-    <div className="flex flex-col gap-5 justify-center px-4 md:px-6">
+    <div className="w-full flex flex-col gap-5 justify-center px-4 md:px-6">
       <TypographyH1>Your Smartest Money Habit Starts Here</TypographyH1>
       <DashboardClient expenses={expenses} categories={categories} />
     </div>
