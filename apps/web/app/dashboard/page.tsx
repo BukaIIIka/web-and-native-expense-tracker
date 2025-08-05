@@ -1,5 +1,4 @@
 import { DashboardClient, TypographyH1 } from "@/components";
-import { StatisticBlock } from "@/components/statistic-block";
 import { ExpenseItemProps } from "@repo/ui";
 
 async function getExpenses() {
@@ -44,7 +43,6 @@ export default async function Dashboard() {
   return (
     <div className="flex flex-col gap-5 justify-center px-4 md:px-6">
       <TypographyH1>Your Smartest Money Habit Starts Here</TypographyH1>
-      <StatisticBlock expenses={expenses} />
       <DashboardClient expenses={expenses} categories={categories} />
     </div>
   );

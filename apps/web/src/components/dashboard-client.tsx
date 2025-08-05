@@ -6,6 +6,7 @@ import { ExpenseList } from "@/components/expense-list";
 import { View, StyleSheet } from "react-native";
 import { ExportToCsvButton } from "@/components/export-to-csv-button";
 import { AddExpenseForm } from "@/components/add-expense-form";
+import { StatisticBlock } from "@/components/statistic-block";
 
 export interface DashboardClientProps {
   expenses: ExpenseItemProps[];
@@ -16,7 +17,8 @@ export function DashboardClient({
   expenses,
   categories,
 }: DashboardClientProps) {
-  const [expenseItems, setExpenseItems] = useState<ExpenseItemProps[]>(expenses);
+  const [expenseItems, setExpenseItems] =
+    useState<ExpenseItemProps[]>(expenses);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"date" | "amount">("date");
 
@@ -40,6 +42,7 @@ export function DashboardClient({
 
   return (
     <div className="flex flex-col gap-5">
+      <StatisticBlock expenses={expenseItems} />
       <View style={styles.controls}>
         <View style={styles.controls}>
           <Dropdown
